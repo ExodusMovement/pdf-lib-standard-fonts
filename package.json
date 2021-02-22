@@ -22,6 +22,11 @@
     "ascii",
     "pdf"
   ],
+  "files": [
+    "lib",
+    "README.md",
+    "LICENSE.md"
+  ],
   "author": "Andrew Dillon <andrew.dillon.j@gmail.com>",
   "contributors": [
     "Christopher Brown <io@henrian.com> (http://henrian.com)"
