@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "description": "Metrics for the Standard 14 PDF fonts and their encodings",
   "main": "lib/index.js",
-  "types": "lib/index.d.ts",
   "scripts": {
     "make": "node Makefile.js",
     "lint": "node Makefile.js lint",
