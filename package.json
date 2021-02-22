@@ -12,7 +12,7 @@
     "afmToJson": "node Makefile.js afmToJson",
     "encodingsToJson": "node Makefile.js encodingsToJson"
   },
-  "repository": "https://github.com/Hopding/standard-fonts.git",
+  "repository": "https://github.com/ExodusMovement/pdf-lib-standard-fonts.git",
   "keywords": [
     "afm",
     "adobe",
@@ -31,7 +31,7 @@
     "Christopher Brown <io@henrian.com> (http://henrian.com)"
   ],
   "license": "MIT",
-  "homepage": "https://github.com/Hopding/standard-fonts",
+  "homepage": "https://github.com/ExodusMovement/pdf-lib-standard-fonts",
   "dependencies": {},
   "devDependencies": {
     "@types/mz": "^0.0.32",
