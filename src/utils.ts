@@ -1,3 +1,4 @@
+import zlib from 'zlib';
 /*
  * The `chars`, `lookup`, and `decodeFromBase64` members of this file are
  * licensed under the following:
@@ -9,7 +10,6 @@
  *     Licensed under the MIT license.
  *
  */
-import pako from 'pako';
 
 const chars =
   'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/';
@@ -62,7 +62,9 @@ const arrayToString = (array: Uint8Array) => {
 };
 
 export const decompressJson = (compressedJson: string): string =>
-  arrayToString(pako.inflate(decodeFromBase64(compressedJson)));
+  arrayToString(
+    new Uint8Array(zlib.inflateSync(decodeFromBase64(compressedJson))),
+  );
 
 export const padStart = (value: string, length: number, padChar: string) => {
   let padding = '';

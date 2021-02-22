@@ -1,6 +1,6 @@
 import * as base64 from 'base64-arraybuffer';
 import fs from 'mz/fs';
-import pako from 'pako';
+import zlib from 'zlib';
 import { basename, dirname } from 'path';
 
 import { ICharMetrics, parseCharMetricsSection } from './parseCharacterMetrics';
@@ -30,7 +30,7 @@ const getAfmFilePaths = async () => {
 const compressJson = (json: string) => {
   const jsonBytes = json.split('').map((c) => c.charCodeAt(0));
   const base64DeflatedJson = JSON.stringify(
-    base64.encode(pako.deflate(jsonBytes)),
+    base64.encode(zlib.deflateSync(Buffer.from(jsonBytes))),
   );
   return base64DeflatedJson;
 };
