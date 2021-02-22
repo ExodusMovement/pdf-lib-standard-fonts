@@ -15,8 +15,6 @@ target.all = () => {
   target.clean();
   target.lint();
   target.compileTS();
-  target.rollupUMD();
-  target.rollupUMDMin();
 };
 
 target.afmToJson = () => {
@@ -46,17 +44,6 @@ target.compileTS = () => {
   target.afmToJson();
   target.encodingsToJson();
   exec('tsc --module CommonJS --outDir lib');
-  exec('tsc --module ES2015 --outDir es');
-};
-
-target.rollupUMD = () => {
-  env.UGLIFY = false;
-  exec(`rollup -c rollup.config.js -o dist/standard-fonts.js`);
-};
-
-target.rollupUMDMin = () => {
-  env.UGLIFY = true;
-  exec(`rollup -c rollup.config.js -o dist/standard-fonts.min.js`);
 };
 
 /* =============================== Release ================================== */
