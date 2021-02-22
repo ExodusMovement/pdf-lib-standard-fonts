@@ -48,65 +48,16 @@ target.compileTS = () => {
 
 /* =============================== Release ================================== */
 
-target.releaseNext = () => {
-  const version = `${packageJson.version}@next`;
-  console.log('Releasing version', version);
-
+target.release = () => {
   target.all();
+  const tag = `v${packageJson.version}`;
+  console.log('Releasing version', tag);
+  execFileSync('git', ['tag', tag]);
+  execFileSync('git', ['push', '--tags']);
 
-  execFileSync('yarn', ['publish', '--tag', 'next', '--access', 'public'], {
-    stdio: 'inherit',
-  });
-};
-
-// Extra confirmation to avoid accidental releases to @latest
-const promptForVerionToBeReleased = async (version) => {
-  const rl = readline.createInterface({
-    input: process.stdin,
-    output: process.stdout,
-  });
-  const question = `Enter "${version}" to proceed with the release: `;
-  return new Promise((resolve) => {
-    rl.question(question, (answer) => {
-      rl.close();
-      resolve(answer);
-    });
-  });
-};
-
-target.releaseLatest = async () => {
-  const currentBranch = exec('git rev-parse --abbrev-ref HEAD').stdout.trim();
-  if (currentBranch !== 'master') {
-    console.error('Must be on `master` branch to cut an @latest release.');
-    return;
-  }
-
-  const version = `${packageJson.version}@latest`;
-  console.log('Releasing version', version);
-
-  target.all();
-
-  const enteredVersion = await promptForVerionToBeReleased(version);
-  if (enteredVersion !== version) {
-    console.error('Entered version does match. Aborting release.');
-    return;
-  }
-
-  execFileSync('yarn', ['publish', '--tag', 'latest', '--access', 'public'], {
+  execFileSync('yarn', ['publish'], {
     stdio: 'inherit',
   });
 
-  const tagName = `v${packageJson.version}`;
-  exec(`git commit -am 'Bump version to ${packageJson.version}'`);
-  exec('git push');
-  exec(`git tag ${tagName}`);
-  exec(`git push origin ${tagName}`);
-  console.log('Created git tag:', tagName);
-
-  const zipName = `standard-fonts_${tagName}.zip`;
-  exec(`zip --exclude node_modules -r ${zipName} .`);
-  console.log('Zip archive of', tagName, 'written to', zipName);
-
-  console.log();
-  console.log('🎉   Release of', version, 'complete! 🎉');
+  console.log('🎉   Release of', tag, 'complete! 🎉');
 };

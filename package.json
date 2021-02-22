@@ -6,12 +6,11 @@
   "scripts": {
     "make": "node Makefile.js",
     "lint": "node Makefile.js lint",
+    "release": "node Makefile.js release",
     "clean": "node Makefile.js clean",
     "typecheck": "tsc --noEmit",
     "afmToJson": "node Makefile.js afmToJson",
-    "encodingsToJson": "node Makefile.js encodingsToJson",
-    "releaseNext": "node Makefile.js releaseNext",
-    "releaseLatest": "node Makefile.js releaseLatest"
+    "encodingsToJson": "node Makefile.js encodingsToJson"
   },
   "repository": "https://github.com/Hopding/standard-fonts.git",
   "keywords": [
